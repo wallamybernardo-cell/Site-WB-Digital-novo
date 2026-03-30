@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Rocket, 
@@ -214,7 +215,6 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Solução', href: '#solucao' },
-    { name: 'Resultados', href: '#resultados' },
     { name: 'Prova Real', href: '#prova-real' },
     { name: 'Planos', href: '#planos' },
     { name: 'Depoimentos', href: '#depoimentos' },
@@ -1455,11 +1455,23 @@ const Footer = () => {
           <div>
             <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-8">Navegação</h4>
             <ul className="space-y-4">
-              {['Solução', 'Resultados', 'Planos', 'Depoimentos', 'FAQ'].map(item => (
+              {['Solução', 'Planos', 'Depoimentos', 'FAQ'].map(item => (
                 <li key={item}>
                   <a href={`#${item.toLowerCase()}`} className="text-sm text-gray-500 hover:text-neon transition-colors">{item}</a>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white mb-8">Políticas</h4>
+            <ul className="space-y-4">
+              <li>
+                <Link href="/privacy" className="text-sm text-gray-500 hover:text-neon transition-colors">Política de Privacidade</Link>
+              </li>
+              <li>
+                <a href="#" className="text-sm text-gray-500 hover:text-neon transition-colors">Termos de Uso</a>
+              </li>
             </ul>
           </div>
 
