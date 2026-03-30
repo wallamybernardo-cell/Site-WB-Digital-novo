@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "Lead": {
+      "title": "Lead",
+      "description": "A potential client who filled out the contact form.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the lead."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the lead."
+        },
+        "whatsapp": {
+          "type": "string",
+          "description": "WhatsApp number of the lead."
+        },
+        "businessType": {
+          "type": "string",
+          "description": "Type of business the lead owns."
+        },
+        "website": {
+          "type": "string",
+          "description": "Website or social media handle."
+        },
+        "revenue": {
+          "type": "string",
+          "description": "Monthly revenue range of the business."
+        },
+        "mainGoal": {
+          "type": "string",
+          "description": "The main goal of the business."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the lead was created."
+        }
+      },
+      "required": ["name", "email", "whatsapp", "businessType", "mainGoal", "createdAt"]
+    }
+  },
+  "firestore": {
+    "leads": {
+      "schema": "Lead",
+      "description": "Collection of leads from the landing page."
+    }
+  }
+}

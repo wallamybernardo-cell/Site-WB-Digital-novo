@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: leads
+    // Document ID: auto-generated
+    // Fields:
+    //   - name: string (required, 1-100 chars)
+    //   - email: string (required, valid email)
+    //   - whatsapp: string (required, 8-20 chars)
+    //   - businessType: string (required, 1-100 chars)
+    //   - website: string (optional, 0-200 chars)
+    //   - mainGoal: string (required, 1-1000 chars)
+    //   - revenue: string (optional, 0-100 chars)
+    //   - createdAt: timestamp (required)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "wallamybernardo@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidLead(data) {
+      return data.keys().hasAll(['name', 'email', 'whatsapp', 'businessType', 'mainGoal', 'createdAt']) &&
+             data.keys().hasOnly(['name', 'email', 'whatsapp', 'businessType', 'website', 'mainGoal', 'revenue', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+             data.email is string && isValidEmail(data.email) &&
+             data.whatsapp is string && data.whatsapp.size() >= 8 && data.whatsapp.size() <= 20 &&
+             data.businessType is string && data.businessType.size() > 0 && data.businessType.size() <= 100 &&
+             (!('website' in data) || (data.website is string && data.website.size() <= 200)) &&
+             data.mainGoal is string && data.mainGoal.size() > 0 && data.mainGoal.size() <= 1000 &&
+             (!('revenue' in data) || (data.revenue is string && data.revenue.size() <= 100)) &&
+             data.createdAt is timestamp;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /leads/{leadId} {
+      // Anyone can create a lead (public form)
+      allow create: if isValidLead(request.resource.data) && 
+                       request.resource.data.createdAt == request.time;
+      
+      // Only admins can read or modify leads
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow write: if isAdmin();
+    }
+  }
+}
