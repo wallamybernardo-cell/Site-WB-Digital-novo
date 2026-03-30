@@ -643,121 +643,6 @@ const Solution = () => {
   );
 };
 
-// --- Results Section ---
-const Results = () => {
-  const stats = [
-    { label: "Aumento de leads", value: 347, suffix: "%" },
-    { label: "Crescimento em vendas", value: 280, suffix: "%" },
-    { label: "Primeiros resultados", value: 14, suffix: " dias" },
-    { label: "ROI médio alcançado", value: 4, suffix: "x" }
-  ];
-
-  const cases = [
-    {
-      category: "Loja de Enxoval",
-      before: ["Só loja física", "R$ 10k/mês", "Sem loja virtual"],
-      after: ["Novos canais digitais", "R$ 25k/mês", "E-commerce ativo"],
-      desc: "Resultado em 90 dias com loja virtual + tráfego pago"
-    },
-    {
-      category: "Loja Infantil",
-      before: ["20k seguidores", "Vendas só na loja", "R$ 20k/mês"],
-      after: ["32k seguidores", "+30% via Instagram", "R$ 26k/mês"],
-      desc: "Resultado em 120 dias com social media + tráfego pago"
-    },
-    {
-      category: "Atelier",
-      before: ["Só por indicação", "Sem presença digital", "R$ 2k/mês"],
-      after: ["+20 pedidos/mês", "IG profissional + Tráfego", "R$ 13k/mês"],
-      desc: "Resultado em 60 dias com Meta Ads + social media"
-    }
-  ];
-
-  return (
-    <section id="resultados" className="py-32 px-5 md:px-10 bg-dark-2 relative">
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="section-label"
-          >
-            Números Reais
-          </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="font-display text-4xl sm:text-5xl md:text-7xl text-white mb-6"
-          >
-            O que nossos clientes<br/>
-            <span className="text-neon neon-text">estão conquistando</span>
-          </motion.h2>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-32">
-          {stats.map((stat, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="glass p-6 md:p-10 rounded-3xl text-center border border-neon/10 hover:border-neon/30 transition-all group"
-            >
-              <div className="font-display text-3xl sm:text-4xl md:text-6xl text-neon mb-2 neon-text group-hover:scale-110 transition-transform">{stat.value}{stat.suffix}</div>
-              <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-500">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        <h3 className="font-display text-4xl text-center text-white mb-12 uppercase tracking-tight">Cases de Transformação</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {cases.map((item, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="glass rounded-3xl overflow-hidden border border-white/5 hover:border-neon/20 transition-all"
-            >
-              <div className="bg-white/5 p-6 text-center border-b border-white/5">
-                <span className="text-neon font-bold text-xs tracking-[0.2em] uppercase">{item.category}</span>
-              </div>
-              <div className="p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                  <div className="space-y-4">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-gray-600">Antes</div>
-                    {item.before.map(text => (
-                      <div key={text} className="text-xs text-gray-400 flex items-start gap-2">
-                        <span className="text-red-500 mt-1">✕</span> {text}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="space-y-4">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-neon">Depois</div>
-                    {item.after.map(text => (
-                      <div key={text} className="text-xs text-white font-bold flex items-start gap-2">
-                        <span className="text-neon mt-1">✓</span> {text}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="pt-6 border-t border-white/5 text-[10px] text-gray-600 uppercase tracking-widest text-center">
-                  {item.desc}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 // --- Founder Results Section ---
 const FounderResults = () => {
   const cards = [
@@ -848,6 +733,7 @@ const FounderResults = () => {
 
 // --- Plans Section ---
 const Plans = () => {
+  const [showAll, setShowAll] = useState(false);
   const plans = [
     {
       name: "Plano X1",
@@ -974,6 +860,8 @@ const Plans = () => {
     }
   ];
 
+  const visiblePlans = showAll ? plans : plans.slice(0, 3);
+
   return (
     <section id="planos" className="py-32 px-5 md:px-10 bg-dark relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-neon/5 blur-[120px] rounded-full pointer-events-none" />
@@ -1002,78 +890,94 @@ const Plans = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-          {plans.map((plan, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className={cn(
-                "glass p-10 rounded-[2.5rem] border border-white/5 transition-all relative flex flex-col",
-                plan.featured ? "border-neon/40 neon-glow scale-105 z-20 bg-neon/5" : "hover:border-neon/20"
-              )}
-            >
-              {plan.featured && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon text-dark text-[10px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full shadow-xl">
-                  Mais Escolhido
-                </div>
-              )}
-              
-              <div className="mb-8">
-                <div className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-4">{plan.name}</div>
-                <div className="flex items-baseline gap-1 mb-2">
-                  {!plan.isCustom && <span className="text-2xl text-white font-bold">R$</span>}
-                  <span className={cn(
-                    "text-white font-display tracking-tighter",
-                    plan.isCustom ? "text-4xl" : "text-6xl"
-                  )}>{plan.price}</span>
-                  {!plan.isCustom && <span className="text-gray-500 font-bold">/mês</span>}
-                </div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-neon">
-                  {plan.isCustom ? "Investimento conforme demanda" : `+ invest. mín. tráfego: R$ ${plan.traffic}`}
-                </div>
-              </div>
-
-              <p className="text-gray-400 text-sm leading-relaxed mb-8 h-12">{plan.desc}</p>
-
-              <div className="space-y-6 flex-1 mb-10">
-                <div>
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-neon mb-4">Entregáveis</div>
-                  <ul className="space-y-3">
-                    {plan.items.map(item => (
-                      <li key={item} className="flex items-start gap-3 text-xs text-gray-300">
-                        <CheckCircle2 className="w-4 h-4 text-neon shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-yellow-500 mb-4">🎁 Bônus</div>
-                  <ul className="space-y-3">
-                    {plan.bonus.map(item => (
-                      <li key={item} className="flex items-start gap-3 text-xs text-gray-400">
-                        <Star className="w-4 h-4 text-yellow-500 shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <a 
-                href="#cta" 
+          <AnimatePresence mode="popLayout">
+            {visiblePlans.map((plan, idx) => (
+              <motion.div 
+                key={plan.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                layout
                 className={cn(
-                  "w-full py-5 rounded-2xl font-bold text-sm uppercase tracking-widest transition-all text-center",
-                  plan.featured ? "bg-neon text-dark hover:bg-neon/90 neon-glow" : "bg-white/5 text-white border border-white/10 hover:bg-neon hover:text-dark hover:border-neon"
+                  "glass p-10 rounded-[2.5rem] border border-white/5 transition-all relative flex flex-col",
+                  plan.featured ? "border-neon/40 neon-glow scale-105 z-20 bg-neon/5" : "hover:border-neon/20"
                 )}
               >
-                Quero esse plano
-              </a>
-            </motion.div>
-          ))}
+                {plan.featured && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon text-dark text-[10px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full shadow-xl">
+                    Mais Escolhido
+                  </div>
+                )}
+                
+                <div className="mb-8">
+                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-4">{plan.name}</div>
+                  <div className="flex items-baseline gap-1 mb-2">
+                    {!plan.isCustom && <span className="text-2xl text-white font-bold">R$</span>}
+                    <span className={cn(
+                      "text-white font-display tracking-tighter",
+                      plan.isCustom ? "text-4xl" : "text-6xl"
+                    )}>{plan.price}</span>
+                    {!plan.isCustom && <span className="text-gray-500 font-bold">/mês</span>}
+                  </div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-neon">
+                    {plan.isCustom ? "Investimento conforme demanda" : `+ invest. mín. tráfego: R$ ${plan.traffic}`}
+                  </div>
+                </div>
+
+                <p className="text-gray-400 text-sm leading-relaxed mb-8 h-12">{plan.desc}</p>
+
+                <div className="space-y-6 flex-1 mb-10">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-neon mb-4">Entregáveis</div>
+                    <ul className="space-y-3">
+                      {plan.items.map(item => (
+                        <li key={item} className="flex items-start gap-3 text-xs text-gray-300">
+                          <CheckCircle2 className="w-4 h-4 text-neon shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-yellow-500 mb-4">🎁 Bônus</div>
+                    <ul className="space-y-3">
+                      {plan.bonus.map(item => (
+                        <li key={item} className="flex items-start gap-3 text-xs text-gray-400">
+                          <Star className="w-4 h-4 text-yellow-500 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <a 
+                  href="#cta" 
+                  className={cn(
+                    "w-full py-5 rounded-2xl font-bold text-sm uppercase tracking-widest transition-all text-center",
+                    plan.featured ? "bg-neon text-dark hover:bg-neon/90 neon-glow" : "bg-white/5 text-white border border-white/10 hover:bg-neon hover:text-dark hover:border-neon"
+                  )}
+                >
+                  Quero esse plano
+                </a>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
+
+        {!showAll && (
+          <div className="mt-16 text-center">
+            <button 
+              onClick={() => setShowAll(true)}
+              className="group flex items-center gap-3 mx-auto px-8 py-4 rounded-full border border-white/10 hover:border-neon/40 hover:bg-neon/5 transition-all"
+            >
+              <span className="text-sm font-bold uppercase tracking-widest text-white group-hover:text-neon">Ver todos os planos</span>
+              <ChevronDown className="w-4 h-4 text-neon group-hover:translate-y-1 transition-transform" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -1083,22 +987,25 @@ const Plans = () => {
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Dra. Mariana Alves",
-      role: "Clínica Odontológica",
-      text: "Em 60 dias a WB Digital transformou minha clínica. Antes lutava para preencher a agenda, hoje estou com lista de espera. Aumentamos o faturamento em 280% e nem acredito nos números ainda.",
-      initials: "MA"
+      name: "Solange Ferreira",
+      role: "Maceió/AL",
+      text: "Nossa operação online está toda com a WB Digital, trabalhamos nesta parceria há anos e sempre fomos muito bem atendidos, já fizeram do site à entrada em marketplaces, do cartão de visita à fachada da loja, muito bom ter um parceiro de confiança.",
+      initials: "SF",
+      image: "/solange.png"
     },
     {
-      name: "Ricardo Lima",
-      role: "Loja de Roupas",
-      text: "Tinha medo de investir em digital porque já fui enganado antes. Com a WB foi diferente desde o início: transparência, relatórios claros e resultados que aparecem mesmo. Minha loja nunca vendeu tanto.",
-      initials: "RL"
+      name: "Marluce Bolina",
+      role: "Belo Horizonte/MG",
+      text: "Sempre quis entrar para o online mas como sempre fui avessa a tecnologia tudo parecia impossível, até WB Digital aparecer na minha vida, estamos bem felizes com o início de nossa operação",
+      initials: "MB",
+      image: "/marluce.png"
     },
     {
-      name: "João Souza",
-      role: "Restaurante e Bar",
-      text: "O Wallamy e a equipe são excepcionais. Eles entenderam meu negócio desde o primeiro dia e montaram uma estratégia certeira. Meu restaurante triplicou o movimento de terça a quinta. Inacreditável.",
-      initials: "JS"
+      name: "José Fabiano",
+      role: "Maceió/AL",
+      text: "Conheço o dono há muito tempo, quando pensamos em montar o projeto da fábrica já fechamos toda parte de designe e social media com a WB, agora estamos estruturando para montar nosso site de atacado e tráfego pago para acelerar as vendas, top demais o trabalho do pessoal.",
+      initials: "JF",
+      image: "/fabiano.png"
     }
   ];
 
@@ -1141,8 +1048,22 @@ const Testimonials = () => {
               </div>
               <p className="text-gray-300 text-sm leading-relaxed mb-8 italic">&quot;{item.text}&quot;</p>
               <div className="flex items-center gap-4 pt-8 border-t border-white/5">
-                <div className="w-12 h-12 rounded-full bg-neon/10 border border-neon/20 flex items-center justify-center font-bold text-neon group-hover:bg-neon group-hover:text-dark transition-all">
-                  {item.initials}
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-neon/10 border border-neon/20 flex items-center justify-center font-bold text-neon group-hover:bg-neon group-hover:text-dark transition-all">
+                  <span className="absolute inset-0 flex items-center justify-center z-0">{item.initials}</span>
+                  {item.image && (
+                    <Image 
+                      src={item.image} 
+                      alt={item.name} 
+                      fill 
+                      className="object-cover z-10 group-hover:opacity-0 transition-opacity duration-300"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        // Fallback to initials if image fails to load
+                        const target = e.target as any;
+                        target.style.display = 'none';
+                      }}
+                    />
+                  )}
                 </div>
                 <div>
                   <div className="font-bold text-white text-sm">{item.name}</div>
@@ -1611,7 +1532,6 @@ export default function Page() {
         <Hero />
         <PainPoints />
         <Solution />
-        <Results />
         <FounderResults />
         <Plans />
         <Testimonials />
