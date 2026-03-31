@@ -330,7 +330,7 @@ const Hero = () => {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="block text-white"
             >
-              Seus clientes
+              Transforme seu
             </motion.span>
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -338,7 +338,7 @@ const Hero = () => {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="block text-neon neon-text"
             >
-              estão procurando
+              negócio local
             </motion.span>
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -346,7 +346,7 @@ const Hero = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="block text-white"
             >
-              agora o que você
+              em uma máquina
             </motion.span>
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -354,7 +354,7 @@ const Hero = () => {
               transition={{ delay: 0.8, duration: 0.8 }}
               className="block text-white"
             >
-              vende… e encontrando
+              de vendas
             </motion.span>
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -362,7 +362,7 @@ const Hero = () => {
               transition={{ delay: 1, duration: 0.8 }}
               className="block text-neon neon-text"
             >
-              seu concorrente.
+              em 30 dias.
             </motion.span>
           </h1>
 
