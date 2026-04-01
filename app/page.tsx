@@ -1256,8 +1256,8 @@ const CTA = () => {
       setSuccess(true);
       setLoading(false);
 
-      // 3. Redirect to WhatsApp
-      window.open(whatsappUrl, '_blank');
+      // 3. Redirect to WhatsApp (using location.href to avoid popup blockers)
+      window.location.href = whatsappUrl;
       
       // Reset form
       setFormData({ name: '', email: '', whatsapp: '', businessType: '', website: '', revenue: '', mainGoal: '' });
